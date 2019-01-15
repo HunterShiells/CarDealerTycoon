@@ -5,17 +5,34 @@
  */
 package DealerShip;
 
+import java.util.ArrayList;
+import javax.swing.*;
+
 /**
  *
  * @author hunt4991
  */
 public class CarDealerTycoon extends javax.swing.JFrame {
-
-    /**
-     * Creates new form CarDealerTycoon
-     */
+    public ArrayList<Vehicle> lot = new ArrayList<Vehicle>(); // Vehicle a, b, c, d, e, f, g, h, i, j, k, l;
+    Icon ccar = new ImageIcon("prus.png");
     public CarDealerTycoon() {
         initComponents();
+        lot.add(new PassengerCar(15000, "Toyota", "Prius", 2005, "yes"));
+        lot.add(new PassengerCar(5000, "Acura", "CSX", 2007, "no"));
+        lot.add(new PassengerCar(47800, "Aston Martin", "Vantage V8", 2007, "no"));
+        lot.add(new PassengerCar(19880, "Audi", "A4", 2014, "yes"));
+        lot.add(new PassengerCar(31980, "MINI", "Cooper Convertable", 2018, "no"));
+        lot.add(new PassengerCar(31999, "Jaguar", "XF 3.0L", 2014, "no"));
+        lot.add(new PassengerCar(52899, "Lexus", "RX 350", 2017, "yes"));
+        lot.add(new PassengerCar(13900, "Dodge", "Caravan", 2015, "no"));
+        lot.add(new Truck(39999, "Dodge", "RAM 1500 Pickup", 2017, "yes"));
+        lot.add(new Truck(2500, "Ford", "F-150", 1999, "no"));
+        lot.add( new Truck(22000, "Chevrolet", "1500 Pickup", 2016, "no"));
+        lot.add(new Truck(14988, "Toyota", "Tacoma", 2008, "yes"));
+        for (int i = 0; i < 12; i++) {
+           tblforsale.setValueAt(lot.get(i).sum(), i, 0); 
+        }
+        tblforsale.setValueAt(ccar, 0, 1);
     }
 
     /**
@@ -100,6 +117,8 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tblforsale);
         if (tblforsale.getColumnModel().getColumnCount() > 0) {
+            tblforsale.getColumnModel().getColumn(0).setResizable(false);
+            tblforsale.getColumnModel().getColumn(0).setPreferredWidth(170);
             tblforsale.getColumnModel().getColumn(1).setResizable(false);
         }
 
@@ -114,7 +133,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(327, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,14 +144,13 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,16 +165,17 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(17, 17, 17))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
