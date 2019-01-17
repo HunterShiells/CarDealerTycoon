@@ -2,8 +2,10 @@ package DealerShip;
 abstract public class Vehicle {
     //fuel type
     protected int price, rprice, year;
+    protected int money=50000;
     protected String  make, model;
     protected static int insurance=100;
+    
     public Vehicle(int p, String m, String n, int y){
         price = p;
         make = m;
@@ -11,6 +13,7 @@ abstract public class Vehicle {
         year = y;
         rprice = 100;
     }
+    
     public Vehicle(int p,int rp, String m, String n, int y){
         price = p;
         make = m;
@@ -41,6 +44,17 @@ abstract public class Vehicle {
         return rprice;
     }
     
+    abstract public int buy(int i);
+    
     public abstract String gettype();
+    
+    public String sum(){
+        return "Make: " + make + " Model: " + model + " Year: " + year;
+    }
+    
+    @Override
+    public String toString() {
+        return "Vehicle{" + "price: " + price + ", rentprice: " + rprice + ", year: " + year + ", make: " + make + ", model: " + model + '}';
+    }
     
 }
