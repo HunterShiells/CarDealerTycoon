@@ -13,26 +13,28 @@ import javax.swing.*;
  * @author hunt4991
  */
 public class CarDealerTycoon extends javax.swing.JFrame {
+
     public ArrayList<Vehicle> lot = new ArrayList<Vehicle>(); // Vehicle a, b, c, d, e, f, g, h, i, j, k, l;
-    Icon ccar = new ImageIcon("prus.png");
+    int money = 50000, cost;
+    Vehicle v;
+
     public CarDealerTycoon() {
         initComponents();
         lot.add(new PassengerCar(15000, "Toyota", "Prius", 2005, "yes"));
         lot.add(new PassengerCar(5000, "Acura", "CSX", 2007, "no"));
         lot.add(new PassengerCar(47800, "Aston Martin", "Vantage V8", 2007, "no"));
-        lot.add(new PassengerCar(19880, "Audi", "A4", 2014, "yes"));
+        lot.add(new PassengerCar(19880, "Audi", "A4", 2014, "no"));
         lot.add(new PassengerCar(31980, "MINI", "Cooper Convertable", 2018, "no"));
         lot.add(new PassengerCar(31999, "Jaguar", "XF 3.0L", 2014, "no"));
-        lot.add(new PassengerCar(52899, "Lexus", "RX 350", 2017, "yes"));
+        lot.add(new PassengerCar(52899, "Lexus", "RX 350", 2017, "no"));
         lot.add(new PassengerCar(13900, "Dodge", "Caravan", 2015, "no"));
         lot.add(new Truck(39999, "Dodge", "RAM 1500 Pickup", 2017, "yes"));
         lot.add(new Truck(2500, "Ford", "F-150", 1999, "no"));
-        lot.add( new Truck(22000, "Chevrolet", "1500 Pickup", 2016, "no"));
+        lot.add(new Truck(22000, "Chevrolet", "1500 Pickup", 2016, "no"));
         lot.add(new Truck(14988, "Toyota", "Tacoma", 2008, "yes"));
         for (int i = 0; i < 12; i++) {
-           tblforsale.setValueAt(lot.get(i).sum(), i, 0); 
+            tblforsale.setValueAt(lot.get(i).sum(), i, 0);
         }
-        tblforsale.setValueAt(ccar, 0, 1);
     }
 
     /**
@@ -55,7 +57,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        txtmon = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblforsale = new javax.swing.JTable();
 
@@ -83,6 +85,11 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         jLabel2.setText("Cars Available:");
 
         jButton1.setText("Buy Selected");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Restore Selected");
 
@@ -92,34 +99,32 @@ public class CarDealerTycoon extends javax.swing.JFrame {
 
         jButton5.setText("Destroy ($300)");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Money: $50000");
+        txtmon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtmon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtmon.setText("Money: $50000");
 
         tblforsale.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Car", "Picture"
+                "Car"
             }
         ));
         jScrollPane4.setViewportView(tblforsale);
         if (tblforsale.getColumnModel().getColumnCount() > 0) {
-            tblforsale.getColumnModel().getColumn(0).setResizable(false);
             tblforsale.getColumnModel().getColumn(0).setPreferredWidth(170);
-            tblforsale.getColumnModel().getColumn(1).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,7 +153,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtmon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
@@ -178,12 +183,29 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtmon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int loc = tblforsale.getSelectedRow();
+        StartingMenu menu = new StartingMenu(this, true);
+        String locs = lot.get(loc).toString();
+        menu.distext(locs);
+        menu.setVisible(true);
+        if (menu.getsig().equals("buy")) {
+            cost = lot.get(loc).buy(lot.get(loc).getPrice());
+            if (money < cost) {
+                JOptionPane.showMessageDialog(this, "You do not have enought money for this vehicle you need: " + cost);
+                return;
+            }
+            money -= cost;
+        }
+        txtmon.setText("Money: " + money);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,12 +250,12 @@ public class CarDealerTycoon extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblforsale;
+    private javax.swing.JLabel txtmon;
     // End of variables declaration//GEN-END:variables
 }
