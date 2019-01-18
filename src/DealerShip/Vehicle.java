@@ -30,6 +30,10 @@ abstract public class Vehicle {
         return year;
     }
 
+    public void setPrice(int p) {
+        price = p;
+    }
+
     final public String getMake() {
         return make;
     }
@@ -49,12 +53,12 @@ abstract public class Vehicle {
     public abstract String gettype();
     
     public String sum(){
-        return "Make: " + make + " Model: " + model + " Year: " + year;
+        return year +" "+ make+ " " + model;
     }
     
     @Override
     public String toString() {
-        return "Vehicle{" + "price: " + price + ", rentprice: " + rprice + ", year: " + year + ", make: " + make + ", model: " + model + '}';
+        return "The price is: $" + price + ", also Rent price is: $" + rprice + " For the " + year + " " + make + " " + model;
     }
     
 }

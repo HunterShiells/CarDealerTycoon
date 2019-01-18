@@ -22,7 +22,7 @@ public class Truck extends Vehicle{
     @Override
     public String toString() {
         tostring = super.toString();
-        return tostring + " 4WD? " + fwd + " Meaning an extra 1500 cost";
+        return tostring + " Is it 4WD? " + fwd + " If yes, an extra 1500 cost";
     }
 
     public String getFwd() {

@@ -26,7 +26,7 @@ public class PassengerCar extends Vehicle {
     @Override
     public String toString() {
         tostring = super.toString();
-        return tostring +"PassengerCar: " + "Green? " + isgreen + " Meaning a 1000 dollar rebate is applied";
+        return tostring +  "Is this car Green?: " + isgreen + " If yes, a 1000 dollar rebate is applied";
     }
 
     @Override
