@@ -2,7 +2,7 @@ package DealerShip;
 abstract public class Vehicle {
     //fuel type
     protected int price, rprice, year;
-    protected int money=50000;
+    protected int money=50000, Startingprice;
     protected String  make, model;
     protected static int insurance=100;
     
@@ -32,6 +32,14 @@ abstract public class Vehicle {
 
     public void setPrice(int p) {
         price = p;
+    }
+    
+    public void setStartingPrice(int p){
+        Startingprice = p;
+    }
+
+    public int getStartingprice() {
+        return Startingprice;
     }
 
     final public String getMake() {

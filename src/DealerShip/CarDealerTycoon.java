@@ -32,8 +32,12 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         lot.add(new Truck(17999, "Ford", "F-150", 2015, "yes"));
         lot.add(new Truck(22000, "Chevrolet", "1500 Pickup", 2016, "no"));
         lot.add(new Truck(14988, "Toyota", "Tacoma", 2008, "yes"));
-        for (int i = 0; i < 12; i++) {
+        lot.add(new PassengerCar(100000, "Ford", "Mustang", 2018, "no"));
+        lot.add(new PassengerCar(125000, "Tesla", "Model X", 2016, "yes"));
+        for (int i = 0; i < 14; i++) {
             tblforsale.setValueAt(lot.get(i).sum(), i, 0);
+            int startingp = lot.get(i).getPrice();
+            lot.get(i).setStartingPrice(startingp);
         }
     }
 
@@ -91,8 +95,18 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         });
 
         jButton2.setText("Restore Selected");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sell Selected");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Rent Selected");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -125,12 +139,22 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
                 "Car"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tblforsale);
         if (tblforsale.getColumnModel().getColumnCount() > 0) {
             tblforsale.getColumnModel().getColumn(0).setPreferredWidth(170);
@@ -149,12 +173,22 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
                 "Cars Owned"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblowned);
         if (tblowned.getColumnModel().getColumnCount() > 0) {
             tblowned.getColumnModel().getColumn(0).setResizable(false);
@@ -247,8 +281,9 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             money -= cost;
         }
         txtmon.setText("Money: " + money);
-        tblforsale.setValueAt("", loc, 0);
+        tblforsale.setValueAt("",loc,0);
         tblowned.setValueAt(lot.get(loc).sum(), loc, 0);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -264,12 +299,53 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         Rent rent = new Rent(this, true);
         int loc = tblowned.getSelectedRow();
         String locs = lot.get(loc).sum();
-        rent.text(locs);
+        int carprice = lot.get(loc).getPrice();
+        if(carprice>1500 && carprice<10000){
+            rent.textx(locs, 2000);
+        }
+        else if(carprice>10000 && carprice<25000){
+            rent.textx(locs, 2000);
+        }
+        else if(carprice>25000 && carprice<50000){
+            rent.textx(locs, 3000);
+        }
+        else if(carprice>50000 && carprice<100000){
+            rent.textx(locs, 4000);
+        }
+        else{
+            rent.textx(locs, 5500);
+        }
         rent.setVisible(true);
         if (rent.getsig().equals("yes")){
-            lot.get(loc).setPrice(lot.get(loc).getPrice()-1500);
-            money += 2400;
-            JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $1500, but you gain $2400");
+            if(carprice<1500){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
+            if(carprice>1500 && carprice<10000){
+                money+=2400;
+                lot.get(loc).setPrice(carprice-2000);
+                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $2400, due to value");
+            }
+            else if(carprice>10000 && carprice<25000){
+                money+=3000;
+                lot.get(loc).setPrice(carprice-2000);
+                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $3000, due to value");
+            }
+            else if(carprice>25000 && carprice<50000){
+                money+=4500;
+                lot.get(loc).setPrice(carprice-3000);
+                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $3000, but you gain $4500, due to value");
+            }
+            else if(carprice>50000 && carprice<100000){
+                money+=6000;
+                lot.get(loc).setPrice(carprice-4000);
+                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $4000, but you gain $6000, due to value");
+            }
+            else if(carprice>100000){
+               money+=10000;
+               lot.get(loc).setPrice(carprice-5500);
+               JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $5500, but you gain $10000, due to value"); 
+            }
         }
         txtmon.setText("Money: " + money);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -278,6 +354,42 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         int loc = tblowned.getSelectedRow();
         JOptionPane.showMessageDialog(this, lot.get(loc).sum() + " Is now worth: " + lot.get(loc).getPrice());
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Selling sell = new Selling(this, true);
+        int loc = tblowned.getSelectedRow();
+        String locs = lot.get(loc).sum();
+        int carprice = lot.get(loc).getPrice();
+        sell.text(locs, carprice);
+        sell.setVisible(true);
+        if (sell.getsig().equals("yes")){
+            money += carprice;
+            JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+        }
+        txtmon.setText("Money: " + money);
+        tblowned.setValueAt("", loc, 0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Restore restore = new Restore(this, true);
+        int loc = tblowned.getSelectedRow();
+        String locs = lot.get(loc).sum();
+        int carprice = lot.get(loc).getPrice();
+        int ramm = lot.get(loc).getStartingprice()/2;
+        int org = lot.get(loc).getStartingprice();
+        restore.text(locs, ramm);
+        restore.setVisible(true);
+        if (restore.getsig().equals("yes")){
+            if(ramm>money){
+                JOptionPane.showMessageDialog(this, "You do not have enough money for this Restore!");
+                return;
+            }
+            money -= ramm;
+            lot.get(loc).setPrice(org);
+            JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+        }
+        txtmon.setText("Money: " + money);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
