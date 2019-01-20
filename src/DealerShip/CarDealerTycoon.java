@@ -15,7 +15,7 @@ import javax.swing.*;
 public class CarDealerTycoon extends javax.swing.JFrame {
 
     public ArrayList<Vehicle> lot = new ArrayList<Vehicle>(); // Vehicle a, b, c, d, e, f, g, h, i, j, k, l;
-    int money = 50000, cost;
+    int money = 20000, cost;
     Vehicle v;
 
     public CarDealerTycoon() {
@@ -39,6 +39,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             int startingp = lot.get(i).getPrice();
             lot.get(i).setStartingPrice(startingp);
         }
+        txtmon.setText("Money: " + money);
     }
 
     /**
@@ -300,27 +301,47 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         int loc = tblowned.getSelectedRow();
         String locs = lot.get(loc).sum();
         int carprice = lot.get(loc).getPrice();
-        if(carprice>1500 && carprice<10000){
+        if(carprice<1500){
+            JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+            return;
+        }
+        else if(carprice>1500 && carprice<10000){
+            if(carprice<2000){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
             rent.textx(locs, 2000);
         }
         else if(carprice>10000 && carprice<25000){
+            if(carprice<2000){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
             rent.textx(locs, 2000);
         }
         else if(carprice>25000 && carprice<50000){
+            if(carprice<3000){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
             rent.textx(locs, 3000);
         }
         else if(carprice>50000 && carprice<100000){
+            if(carprice<4000){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
             rent.textx(locs, 4000);
         }
-        else{
+        else if (carprice>10000){
+            if(carprice<5500){
+                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                return;
+            }
             rent.textx(locs, 5500);
         }
         rent.setVisible(true);
         if (rent.getsig().equals("yes")){
-            if(carprice<1500){
-                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
-                return;
-            }
             if(carprice>1500 && carprice<10000){
                 money+=2400;
                 lot.get(loc).setPrice(carprice-2000);
