@@ -38,12 +38,19 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         lot.add(new Truck(14988, "Toyota", "Tacoma", 2008, "yes"));
         lot.add(new PassengerCar(100000, "Ford", "Mustang", 2018, "no"));
         lot.add(new PassengerCar(125000, "Tesla", "Model X", 2016, "yes"));
-        for (int i = 0; i < 14; i++) {
+        lot.add(new Truck(37600, "Chevrolet", "Silverado 2500HD", 2019, "yes"));
+        lot.add(new Truck(36140, "Dodge", "RAM 1500", 2019, "no"));
+        lot.add(new PassengerCar(66845, "Alfa Romeo", "4C Coupe", 2018, "no"));
+        lot.add(new PassengerCar(55999, "Tesla", "Model S", 2012, "yes"));
+        lot.add(new PassengerCar(89800, "Jaguar", "I-PACE", 2019, "yes"));
+        lot.add(new PassengerCar(129988, "Lamborghini", "Gallardo Superlegerra", 2007, "no"));
+        
+        for (int i = 0; i < 20; i++) {
             tblforsale.setValueAt(lot.get(i).sum(), i, 0);
             int startingp = lot.get(i).getPrice();
             lot.get(i).setStartingPrice(startingp);
         }
-        txtmon.setText("Money: " + money);
+        txtmon.setText("Money: $" + money);
     }
 
     /**
@@ -146,6 +153,12 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
@@ -167,6 +180,12 @@ public class CarDealerTycoon extends javax.swing.JFrame {
 
         tblowned.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null},
                 {null},
                 {null},
@@ -291,13 +310,13 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         inv.add(lot.get(loc));
         int loccs = inv.size();
         lot.remove(loc);
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 20; i++) {
             tblforsale.setValueAt("",i,0);
         }
         for(int i = 0; i< lot.size(); i++){
             tblforsale.setValueAt(lot.get(i).sum(), i, 0);
         }
-        txtmon.setText("Money: " + money);
+        txtmon.setText("Money: $" + money);
         tblowned.setValueAt(inv.get(loccs-1).sum(), loccs-1, 0);
         tblforsale.getSelectionModel().clearSelection();
         }catch(Exception e){}
@@ -311,8 +330,8 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "You have Scraped a car!!!! What a horrible person you are, you gained $300 dollars!");
         inv.remove(loc);
         money += 300;
-        txtmon.setText("Money: " + money);
-        for (int i = 0; i < 14; i++) {
+        txtmon.setText("Money: $" + money);
+        for (int i = 0; i < 20; i++) {
             tblowned.setValueAt("",i,0);
         }
         for(int i = 0; i< inv.size(); i++){
@@ -396,7 +415,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $5500, but you gain $10000, due to value"); 
             }
         }
-        txtmon.setText("Money: " + money);
+        txtmon.setText("Money: $" + money);
         }catch(Exception e){}
     }//GEN-LAST:event_btnrentActionPerformed
 
@@ -420,8 +439,8 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
         }
         inv.remove(loc);
-        txtmon.setText("Money: " + money);
-        for (int i = 0; i < 14; i++) {
+        txtmon.setText("Money: $" + money);
+        for (int i = 0; i < 20; i++) {
             tblowned.setValueAt("",i,0);
         }
         for(int i = 0; i< inv.size(); i++){
@@ -451,7 +470,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             inv.get(loc).setPrice(org);
             JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
         }
-        txtmon.setText("Money: " + money);
+        txtmon.setText("Money: $" + money);
         }catch(Exception e){}
     }//GEN-LAST:event_btnrestoreActionPerformed
 

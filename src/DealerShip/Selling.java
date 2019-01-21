@@ -45,7 +45,9 @@ public class Selling extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtarea.setEditable(false);
         txtarea.setColumns(20);
+        txtarea.setLineWrap(true);
         txtarea.setRows(5);
         jScrollPane1.setViewportView(txtarea);
 

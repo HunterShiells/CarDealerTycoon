@@ -59,7 +59,9 @@ public class Restore extends javax.swing.JDialog {
             }
         });
 
+        txtarea.setEditable(false);
         txtarea.setColumns(20);
+        txtarea.setLineWrap(true);
         txtarea.setRows(5);
         jScrollPane1.setViewportView(txtarea);
 

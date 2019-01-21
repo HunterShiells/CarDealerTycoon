@@ -63,7 +63,9 @@ public class Rent extends javax.swing.JDialog {
             }
         });
 
+        txtarea.setEditable(false);
         txtarea.setColumns(20);
+        txtarea.setLineWrap(true);
         txtarea.setRows(5);
         txtarea.setAutoscrolls(false);
         jScrollPane2.setViewportView(txtarea);
