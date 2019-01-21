@@ -60,21 +60,21 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton4" max="32767" attributes="0"/>
-                                  <Component id="jButton2" pref="130" max="32767" attributes="0"/>
+                                  <Component id="btnrent" max="32767" attributes="0"/>
+                                  <Component id="btnrestore" pref="130" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jButton3" min="-2" pref="139" max="-2" attributes="0"/>
+                                      <Component id="btnsell" min="-2" pref="139" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton6" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="btnstat" min="-2" pref="104" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jButton5" min="-2" pref="138" max="-2" attributes="0"/>
+                                  <Component id="btnscrap" min="-2" pref="138" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton1" min="-2" pref="275" max="-2" attributes="0"/>
+                                  <Component id="btnbuy" min="-2" pref="275" max="-2" attributes="0"/>
                                   <Component id="txtmon" min="-2" pref="275" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -105,19 +105,19 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton3" alignment="3" pref="35" max="32767" attributes="0"/>
-                      <Component id="jButton1" alignment="3" pref="35" max="32767" attributes="0"/>
+                      <Component id="btnsell" alignment="3" pref="35" max="32767" attributes="0"/>
+                      <Component id="btnbuy" alignment="3" pref="35" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jButton2" max="32767" attributes="0"/>
-                  <Component id="jButton6" max="32767" attributes="0"/>
+                  <Component id="btnrestore" max="32767" attributes="0"/>
+                  <Component id="btnstat" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton4" alignment="3" pref="26" max="32767" attributes="0"/>
+                      <Component id="btnrent" alignment="3" pref="26" max="32767" attributes="0"/>
                       <Component id="txtmon" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnscrap" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -141,44 +141,44 @@
         <Property name="text" type="java.lang.String" value="Cars Available:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnbuy">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buy Selected"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnbuyActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnrestore">
       <Properties>
         <Property name="text" type="java.lang.String" value="Restore Selected"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnrestoreActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnsell">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sell Selected"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsellActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnrent">
       <Properties>
         <Property name="text" type="java.lang.String" value="Rent Selected"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnrentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btnscrap">
       <Properties>
         <Property name="text" type="java.lang.String" value="Scrap ($300)"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnscrapActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtmon">
@@ -250,12 +250,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btnstat">
       <Properties>
         <Property name="text" type="java.lang.String" value="Statistics"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnstatActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

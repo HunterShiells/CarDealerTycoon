@@ -16,19 +16,19 @@ public class Rent extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+    //set the text with the String sent in 
     public String text(String s){
         txtarea.setText("");
         txtarea.setText("When you rent out your: " + s + " each time you do rent the cars value declines $1000, money you will earn depends on the cars value");
         return s;
     }
-    
+    //set the text with the string and in sent in 
     public String textx(String s, int i){
         txtarea.setText("");
         txtarea.setText("When you rent out your: " + s + " each time you do rent the car, the value declines $"+ i +", money you will earn depends on the cars value");
         return s;
     }
-    
+    //get the signal
     public String getsig(){
         return signal;
     }
@@ -97,12 +97,12 @@ public class Rent extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //set signal to yes and close
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         signal = "yes";
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //close program if no is pressed
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

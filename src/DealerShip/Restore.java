@@ -19,12 +19,12 @@ public class Restore extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+    //set the text with and string and int sent in
     public String text(String s, int i){
         txtarea.setText("To restore your " + s + " to orginal value it will cost you $" + i);
         return s;
     }
-    
+    //get the signal
     public String getsig(){
         return signal;
     }
@@ -93,12 +93,12 @@ public class Restore extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //if button clicked signal is yes
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         signal = "yes";
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    //if no is clicked close
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

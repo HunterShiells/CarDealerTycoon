@@ -19,12 +19,12 @@ public class Selling extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+    //setting the text with the string sent in, and the selling ammount
     public String text(String s, int i){
         txtarea.setText("Your " + s + " Will sell for $" + i + ",The money will instantly be put into your account!");
         return s;
     }
-    
+    //get the signal 
     public String getsig(){
         return signal;
     }
@@ -92,12 +92,12 @@ public class Selling extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //if button is clicked signal is yes
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         signal = "yes";
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //button is clicked and program closes
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

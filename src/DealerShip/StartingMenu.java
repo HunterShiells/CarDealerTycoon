@@ -16,12 +16,12 @@ public class StartingMenu extends javax.swing.JDialog {
         initComponents();
         String signal;
     }
-    
+    //set the text using the string sent in
     public String distext(String s){
         lblbuytxt.setText(s);
         return s;
     }
-    
+    //getting the signal 
     public String getsig(){
         return signal;
     }
@@ -79,7 +79,7 @@ public class StartingMenu extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //setting the signal to buy when button is clicked
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         signal = "buy";
         this.dispose();
