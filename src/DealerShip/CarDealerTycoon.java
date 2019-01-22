@@ -6,6 +6,7 @@
 package DealerShip;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.*;
 
 /**
@@ -20,9 +21,11 @@ public class CarDealerTycoon extends javax.swing.JFrame {
     //starting money and cost
     int money = 20000, cost;
     Vehicle v;
+    private DefaultListModel list;
 
     public CarDealerTycoon() {
         initComponents();
+        list = new DefaultListModel();
         //add all of the vehicles and display them on the table, as well as storing the starting price
         lot.add(new PassengerCar(15000, "Toyota", "Prius", 2005, "yes"));
         lot.add(new PassengerCar(5000, "Acura", "CSX", 2007, "no"));
@@ -44,6 +47,10 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         lot.add(new PassengerCar(55999, "Tesla", "Model S", 2012, "yes"));
         lot.add(new PassengerCar(89800, "Jaguar", "I-PACE", 2019, "yes"));
         lot.add(new PassengerCar(129988, "Lamborghini", "Gallardo Superlegerra", 2007, "no"));
+        
+        Collections.sort(lot);
+       
+         
         
         for (int i = 0; i < 20; i++) {
             tblforsale.setValueAt(lot.get(i).sum(), i, 0);
@@ -77,6 +84,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblowned = new javax.swing.JTable();
         btnstat = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -225,6 +233,13 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Sort(Price)");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,11 +261,12 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                                     .addComponent(btnrestore, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnsell, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnstat, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnsell, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnscrap, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnstat, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnbuy, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,7 +299,9 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnrent, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(txtmon))
-                    .addComponent(btnscrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnscrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
 
@@ -474,6 +492,10 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         }catch(Exception e){}
     }//GEN-LAST:event_btnrestoreActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -516,6 +538,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
     private javax.swing.JButton btnscrap;
     private javax.swing.JButton btnsell;
     private javax.swing.JButton btnstat;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
