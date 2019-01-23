@@ -1,5 +1,5 @@
 package DealerShip;
-abstract public class Vehicle {
+abstract public class Vehicle implements Comparable {
     //fuel type
     protected int price, rprice, year;
     protected int money=50000, Startingprice;
@@ -69,6 +69,12 @@ abstract public class Vehicle {
     @Override
     public String toString() {
         return "The price is: $" + price + ", also Rent price is: $" + rprice + " For the " + year + " " + make + " " + model;
+    }
+    //compareTo used to compare the car makes and order them into a proper order
+    @Override
+    public int compareTo(Object o) {
+        String othmak = ((Vehicle)o).getMake();
+        return this.make.compareTo(othmak);
     }
     
 }
