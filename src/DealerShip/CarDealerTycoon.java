@@ -14,6 +14,7 @@ import javax.swing.*;
  * @author hunt4991
  */
 public class CarDealerTycoon extends javax.swing.JFrame {
+
     //array list for vehicle lot
     public ArrayList<Vehicle> lot = new ArrayList<Vehicle>();
     //array list for your inventory
@@ -47,11 +48,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         lot.add(new PassengerCar(55999, "Tesla", "Model S", 2012, "yes"));
         lot.add(new PassengerCar(89800, "Jaguar", "I-PACE", 2019, "yes"));
         lot.add(new PassengerCar(129988, "Lamborghini", "Gallardo Superlegerra", 2007, "no"));
-        
-        Collections.sort(lot);
-       
-         
-        
+
         for (int i = 0; i < 20; i++) {
             tblforsale.setValueAt(lot.get(i).sum(), i, 0);
             int startingp = lot.get(i).getPrice();
@@ -84,7 +81,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblowned = new javax.swing.JTable();
         btnstat = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnsort = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,10 +230,10 @@ public class CarDealerTycoon extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Sort(Price)");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnsort.setText("Sort(A-Z)");
+        btnsort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnsortActionPerformed(evt);
             }
         });
 
@@ -266,7 +263,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnstat, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnsort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnbuy, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,7 +298,7 @@ public class CarDealerTycoon extends javax.swing.JFrame {
                         .addComponent(txtmon))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnscrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnsort)))
                 .addContainerGap())
         );
 
@@ -311,190 +308,224 @@ public class CarDealerTycoon extends javax.swing.JFrame {
     private void btnbuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuyActionPerformed
         //buy the vehicle deducting the cost from money, if not you cannot buy it also moving the table up each time a car is bought, and removing it 
         //from the array list preventing you being able to buy it again. surrounded in a try catch
-        try{
-        int loc = tblforsale.getSelectedRow();
-        StartingMenu menu = new StartingMenu(this, true);
-        String locs = lot.get(loc).toString();
-        menu.distext(locs);
-        menu.setVisible(true);
-        if (menu.getsig().equals("buy")) {
-            cost = lot.get(loc).buy(lot.get(loc).getPrice());
-            if (money < cost) {
-                JOptionPane.showMessageDialog(this, "You do not have enought money for this vehicle you need: " + cost);
-                return;
+        try {
+            int loc = tblforsale.getSelectedRow();
+            StartingMenu menu = new StartingMenu(this, true);
+            String locs = lot.get(loc).toString();
+            menu.distext(locs);
+            menu.setVisible(true);
+            if (menu.getsig().equals("buy")) {
+                cost = lot.get(loc).buy(lot.get(loc).getPrice());
+                if (money < cost) {
+                    JOptionPane.showMessageDialog(this, "You do not have enought money for this vehicle you need: " + cost);
+                    return;
+                }
+                money -= cost;
             }
-            money -= cost;
+            inv.add(lot.get(loc));
+            int loccs = inv.size();
+            lot.remove(loc);
+            for (int i = 0; i < 20; i++) {
+                tblforsale.setValueAt("", i, 0);
+            }
+            for (int i = 0; i < lot.size(); i++) {
+                tblforsale.setValueAt(lot.get(i).sum(), i, 0);
+            }
+            txtmon.setText("Money: $" + money);
+            tblowned.setValueAt(inv.get(loccs - 1).sum(), loccs - 1, 0);
+            tblforsale.getSelectionModel().clearSelection();
+        } catch (Exception e) {
         }
-        inv.add(lot.get(loc));
-        int loccs = inv.size();
-        lot.remove(loc);
-        for (int i = 0; i < 20; i++) {
-            tblforsale.setValueAt("",i,0);
-        }
-        for(int i = 0; i< lot.size(); i++){
-            tblforsale.setValueAt(lot.get(i).sum(), i, 0);
-        }
-        txtmon.setText("Money: $" + money);
-        tblowned.setValueAt(inv.get(loccs-1).sum(), loccs-1, 0);
-        tblforsale.getSelectionModel().clearSelection();
-        }catch(Exception e){}
     }//GEN-LAST:event_btnbuyActionPerformed
 
     private void btnscrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscrapActionPerformed
         //you scrap a car and make sure you cannot remove the car again for money
         //also updating the table adding the money + 300
-        try{
-        int loc = tblowned.getSelectedRow();
-        JOptionPane.showMessageDialog(this, "You have Scraped a car!!!! What a horrible person you are, you gained $300 dollars!");
-        inv.remove(loc);
-        money += 300;
-        txtmon.setText("Money: $" + money);
-        for (int i = 0; i < 20; i++) {
-            tblowned.setValueAt("",i,0);
+        try {
+            int loc = tblowned.getSelectedRow();
+            //if the nothing is selected on the owned row return a statement and dont allow it.
+            if(loc==-1){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to Scrap");
+                return;
+            }
+            if(inv.get(loc)==null){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to Scrap");
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "You have Scraped a car!!!! What a horrible person you are, you gained $300 dollars!");
+            inv.remove(loc);
+            money += 300;
+            txtmon.setText("Money: $" + money);
+            for (int i = 0; i < 20; i++) {
+                tblowned.setValueAt("", i, 0);
+            }
+            for (int i = 0; i < inv.size(); i++) {
+                tblowned.setValueAt(inv.get(i).sum(), i, 0);
+            }
+        } catch (Exception e) {
         }
-        for(int i = 0; i< inv.size(); i++){
-            tblowned.setValueAt(inv.get(i).sum(), i, 0);
-        }
-        }catch(Exception e){}
     }//GEN-LAST:event_btnscrapActionPerformed
 
     private void btnrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrentActionPerformed
         //if the carprice is lower than a certain ammount we do not allow it to be rented out. if the carprice is in a certain ammount,
         //we give them a certain gain back and also depreciate by a set ammount.
-        try{
-        Rent rent = new Rent(this, true);
-        int loc = tblowned.getSelectedRow();
-        String locs = inv.get(loc).sum();
-        int carprice = inv.get(loc).getPrice();
-        if(carprice<1500){
-            JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
-            return;
-        }
-        else if(carprice>1500 && carprice<10000){
-            if(carprice<2000){
-                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+        try {
+            Rent rent = new Rent(this, true);
+            int loc = tblowned.getSelectedRow();
+            //if the nothing is selected on the owned row return a statement and dont allow it.
+            if(loc==-1){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to Rent");
                 return;
             }
-            rent.textx(locs, 2000);
-        }
-        else if(carprice>10000 && carprice<25000){
-            if(carprice<2000){
+            String locs = inv.get(loc).sum();
+            int carprice = inv.get(loc).getPrice();
+            if (carprice < 1500) {
                 JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
                 return;
+            } else if (carprice > 1500 && carprice < 10000) {
+                if (carprice < 2000) {
+                    JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                    return;
+                }
+                rent.textx(locs, 2000);
+            } else if (carprice > 10000 && carprice < 25000) {
+                if (carprice < 2000) {
+                    JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                    return;
+                }
+                rent.textx(locs, 2000);
+            } else if (carprice > 25000 && carprice < 50000) {
+                if (carprice < 3000) {
+                    JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                    return;
+                }
+                rent.textx(locs, 3000);
+            } else if (carprice > 50000 && carprice < 100000) {
+                if (carprice < 4000) {
+                    JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                    return;
+                }
+                rent.textx(locs, 4000);
+            } else if (carprice > 10000) {
+                if (carprice < 5500) {
+                    JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
+                    return;
+                }
+                rent.textx(locs, 5500);
             }
-            rent.textx(locs, 2000);
+            rent.setVisible(true);
+            if (rent.getsig().equals("yes")) {
+                if (carprice > 1500 && carprice < 10000) {
+                    money += 2400;
+                    inv.get(loc).setPrice(carprice - 2000);
+                    JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $2400, due to value");
+                } else if (carprice > 10000 && carprice < 25000) {
+                    money += 3000;
+                    inv.get(loc).setPrice(carprice - 2000);
+                    JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $3000, due to value");
+                } else if (carprice > 25000 && carprice < 50000) {
+                    money += 4500;
+                    inv.get(loc).setPrice(carprice - 3000);
+                    JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $3000, but you gain $4500, due to value");
+                } else if (carprice > 50000 && carprice < 100000) {
+                    money += 6000;
+                    inv.get(loc).setPrice(carprice - 4000);
+                    JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $4000, but you gain $6000, due to value");
+                } else if (carprice > 100000) {
+                    money += 10000;
+                    inv.get(loc).setPrice(carprice - 5500);
+                    JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $5500, but you gain $10000, due to value");
+                }
+            }
+            txtmon.setText("Money: $" + money);
+        } catch (Exception e) {
         }
-        else if(carprice>25000 && carprice<50000){
-            if(carprice<3000){
-                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
-                return;
-            }
-            rent.textx(locs, 3000);
-        }
-        else if(carprice>50000 && carprice<100000){
-            if(carprice<4000){
-                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
-                return;
-            }
-            rent.textx(locs, 4000);
-        }
-        else if (carprice>10000){
-            if(carprice<5500){
-                JOptionPane.showMessageDialog(this, "The car is in a horrible condition to rent out, sell, destroy or restore it!");
-                return;
-            }
-            rent.textx(locs, 5500);
-        }
-        rent.setVisible(true);
-        if (rent.getsig().equals("yes")){
-            if(carprice>1500 && carprice<10000){
-                money+=2400;
-                inv.get(loc).setPrice(carprice-2000);
-                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $2400, due to value");
-            }
-            else if(carprice>10000 && carprice<25000){
-                money+=3000;
-                inv.get(loc).setPrice(carprice-2000);
-                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $2000, but you gain $3000, due to value");
-            }
-            else if(carprice>25000 && carprice<50000){
-                money+=4500;
-                inv.get(loc).setPrice(carprice-3000);
-                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $3000, but you gain $4500, due to value");
-            }
-            else if(carprice>50000 && carprice<100000){
-                money+=6000;
-                inv.get(loc).setPrice(carprice-4000);
-                JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $4000, but you gain $6000, due to value");
-            }
-            else if(carprice>100000){
-               money+=10000;
-               inv.get(loc).setPrice(carprice-5500);
-               JOptionPane.showMessageDialog(this, "You have rented out a car, its value declines $5500, but you gain $10000, due to value"); 
-            }
-        }
-        txtmon.setText("Money: $" + money);
-        }catch(Exception e){}
     }//GEN-LAST:event_btnrentActionPerformed
 
     private void btnstatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstatActionPerformed
         //display the cars stats
+        try{
         int loc = tblowned.getSelectedRow();
+        //if the nothing is selected on the owned row return a statement and dont allow it.
+        if(loc==-1){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to show the statistics");
+                return;
+        }
         JOptionPane.showMessageDialog(this, inv.get(loc).sum() + " Is now worth: " + inv.get(loc).getPrice());
+        }catch(Exception e){}
     }//GEN-LAST:event_btnstatActionPerformed
 
     private void btnsellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsellActionPerformed
         //sell the car get the selected row and get that car ammount and add it on to money. also moving the list up cause the car is sold and will disappear.
-        try{
-        Selling sell = new Selling(this, true);
-        int loc = tblowned.getSelectedRow();
-        String locs = inv.get(loc).sum();
-        int carprice = inv.get(loc).getPrice();
-        sell.text(locs, carprice);
-        sell.setVisible(true);
-        if (sell.getsig().equals("yes")){
-            money += carprice;
-            JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+        try {
+            Selling sell = new Selling(this, true);
+            int loc = tblowned.getSelectedRow();
+            //if the nothing is selected on the owned row return a statement and dont allow it.
+            if(loc==-1){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to Sell it");
+                return;
+            }
+            String locs = inv.get(loc).sum();
+            int carprice = inv.get(loc).getPrice();
+            sell.text(locs, carprice);
+            sell.setVisible(true);
+            if (sell.getsig().equals("yes")) {
+                money += carprice;
+                JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+            }
+            inv.remove(loc);
+            txtmon.setText("Money: $" + money);
+            for (int i = 0; i < 20; i++) {
+                tblowned.setValueAt("", i, 0);
+            }
+            for (int i = 0; i < inv.size(); i++) {
+                tblowned.setValueAt(inv.get(i).sum(), i, 0);
+            }
+        } catch (Exception e) {
         }
-        inv.remove(loc);
-        txtmon.setText("Money: $" + money);
-        for (int i = 0; i < 20; i++) {
-            tblowned.setValueAt("",i,0);
-        }
-        for(int i = 0; i< inv.size(); i++){
-            tblowned.setValueAt(inv.get(i).sum(), i, 0);
-        }
-        }catch(Exception e){}
     }//GEN-LAST:event_btnsellActionPerformed
 
     private void btnrestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrestoreActionPerformed
         //restore the vehicle, i take the orginal cost and divide it by 2, andthat is the price that you will pay in order to restore it to its orginal ammount
         // if you do not have enough it will not be restored.
-        try{
-        Restore restore = new Restore(this, true);
-        int loc = tblowned.getSelectedRow();
-        String locs = inv.get(loc).sum();
-        int carprice = inv.get(loc).getPrice();
-        int ramm = inv.get(loc).getStartingprice()/2;
-        int org = inv.get(loc).getStartingprice();
-        restore.text(locs, ramm);
-        restore.setVisible(true);
-        if (restore.getsig().equals("yes")){
-            if(ramm>money){
-                JOptionPane.showMessageDialog(this, "You do not have enough money for this Restore!");
+        try {
+            Restore restore = new Restore(this, true);
+            int loc = tblowned.getSelectedRow();
+            //if the nothing is selected on the owned row return a statement and dont allow it.
+            if(loc==-1){
+                JOptionPane.showMessageDialog(this, "Please select a car that you own to Restore it");
                 return;
             }
-            money -= ramm;
-            inv.get(loc).setPrice(org);
-            JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+            String locs = inv.get(loc).sum();
+            int carprice = inv.get(loc).getPrice();
+            int ramm = inv.get(loc).getStartingprice() / 2;
+            int org = inv.get(loc).getStartingprice();
+            restore.text(locs, ramm);
+            restore.setVisible(true);
+            if (restore.getsig().equals("yes")) {
+                if (ramm > money) {
+                    JOptionPane.showMessageDialog(this, "You do not have enough money for this Restore!");
+                    return;
+                }
+                money -= ramm;
+                inv.get(loc).setPrice(org);
+                JOptionPane.showMessageDialog(this, "Car successfully sold, Thanks for your business DEALER!");
+            }
+            txtmon.setText("Money: $" + money);
+        } catch (Exception e) {
         }
-        txtmon.setText("Money: $" + money);
-        }catch(Exception e){}
     }//GEN-LAST:event_btnrestoreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnsortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsortActionPerformed
+        //compare all of the car makes and order them from a to b using comparable.
+        Collections.sort(lot);
+        for (int i = 0; i < 20; i++) {
+            tblforsale.setValueAt("", i, 0);
+        }
+        for (int i = 0; i < lot.size(); i++) {
+            tblforsale.setValueAt(lot.get(i).sum(), i, 0);
+        }
+    }//GEN-LAST:event_btnsortActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,8 +568,8 @@ public class CarDealerTycoon extends javax.swing.JFrame {
     private javax.swing.JButton btnrestore;
     private javax.swing.JButton btnscrap;
     private javax.swing.JButton btnsell;
+    private javax.swing.JButton btnsort;
     private javax.swing.JButton btnstat;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
